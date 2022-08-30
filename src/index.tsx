@@ -1,20 +1,20 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules } from 'react-native';
 
-const LINKING_ERROR =
-  `The package 'esp-idf-provisioning-react-native' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n';
+interface EspIdfBleProvisioningRnType {
+  create(): void;
+  scanBleDevices(prefix: string): Promise<Array<Object>>;
+  setProofOfPossession(proof: string): void;
+  getProofOfPossession(): Promise<string>;
+  connectToBLEDevice(uuid: string): Promise<Object>;
+  scanNetworks(): Promise<Array<Object>>;
+  sendCustomData(customEndPoint: string, customData: string): Promise<Object>;
+  sendCustomDataWithByteData(
+    customEndPoint: string,
+    customData: any // this must be an array of strings, where each string is a hexidecial value ie ["0", "FF", "52"] FF is max, unsigned
+  ): Promise<Object>;
+  provisionNetwork(ssid: string, password: string): Promise<Object>;
+};
 
-const EspIdfProvisioningReactNative = NativeModules.EspIdfProvisioningReactNative  ? NativeModules.EspIdfProvisioningReactNative  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+const { EspIdfProvisioningReactNative } = NativeModules;
 
-export function multiply(a: number, b: number): Promise<number> {
-  return EspIdfProvisioningReactNative.multiply(a, b);
-}
+export default EspIdfProvisioningReactNative as EspIdfBleProvisioningRnType;
