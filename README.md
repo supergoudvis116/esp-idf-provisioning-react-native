@@ -1,20 +1,28 @@
 # esp-idf-provisioning-react-native
-ESP IDF Provisioning React Native
+ESP IDF Provisioning for React Native
 ## Installation
 
 ```sh
-npm install esp-idf-provisioning-react-native
+npm install @digitalfortress-dev/esp-idf-provisioning-react-native
 ```
+
+## Permissions
+
+The permissions needed for Android: ACCESS_FINE_LOCATION, BLUETOOTH, BLUETOOTH_ADMIN
 
 ## Usage
 
 ```js
-import { multiply } from "esp-idf-provisioning-react-native";
+import EspIdfProvisioningReactNative from '@digitalfortress-dev/esp-idf-provisioning-react-native';
 
-// ...
+...
 
-const result = await multiply(3, 7);
+EspIdfProvisioningReactNative.create();
 ```
+
+## Example app
+
+[Example app here](https://github.com/digitalfortress-dev/esp-idf-provisioning-react-native/tree/master/example)
 
 ## Contributing
 

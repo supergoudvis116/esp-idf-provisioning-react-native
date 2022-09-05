@@ -1,5 +1,5 @@
 {
-  "name": "esp-idf-provisioning-react-native",
+  "name": "@digitalfortress-dev/esp-idf-provisioning-react-native",
   "version": "0.1.0",
   "description": "test",
   "main": "lib/commonjs/index",
