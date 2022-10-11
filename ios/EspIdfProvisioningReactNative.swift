@@ -101,7 +101,7 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
         self.proofOfPossession = proof
     }
     
-    @objc
+    @objc(scanNetworks:reject:)
     func scanNetworks(
         resolve: @escaping RCTPromiseResolveBlock,
         reject: @escaping RCTPromiseRejectBlock
@@ -157,7 +157,7 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
                                 })
     }
     
-    @objc
+    @objc(sendCustomData:customData:resolve:reject:)
     func sendCustomData(
         customEndPoint: String,
         customData: String,
@@ -165,6 +165,27 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
         reject: @escaping RCTPromiseRejectBlock
     ) {
         self.espDevice.sendData(path: customEndPoint, data: customData.data(using: .utf16)!, completionHandler: {data, error in
+            if let error = error {
+                print("Custom data provision has failed")
+                reject("Custom data provision has failed", "Custom data provision has failed", error)
+            }
+            let response: NSDictionary = ["success": true, "data": String(describing: data)]
+            resolve(response)
+        })
+    }
+    
+    @objc(sendCustomDataWithByteData:customData:resolve:reject:)
+    func sendCustomDataWithByteData(
+        customEndPoint: String,
+        customData: Array<String>,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
+    ) {
+        var output = [UInt8]()
+        for char in customData {
+            output.append(UInt8(char, radix: 16) ?? 0)
+        }
+        self.espDevice.sendData(path: customEndPoint, data: Data(output), completionHandler: {data, error in
             if let error = error {
                 print("Custom data provision has failed")
                 reject("Custom data provision has failed", "Custom data provision has failed", error)

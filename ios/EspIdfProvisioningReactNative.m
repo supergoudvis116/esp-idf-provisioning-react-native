@@ -10,6 +10,7 @@ RCT_EXTERN_METHOD(setProofOfPossession:(NSString *)proof)
 RCT_EXTERN_METHOD(scanNetworks:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(provisionNetwork:(NSString *)ssid password:(NSString *)password resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(sendCustomData:(NSString *)customEndPoint customData:(NSString *)customData resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(sendCustomDataWithByteData:(NSString *)customEndPoint customData:(NSArray *)customData resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 
 + (BOOL)requiresMainQueueSetup
 {
