@@ -233,6 +233,24 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
     @ReactMethod
     public void scanBleDevices(String prefix, Promise promise) {
         try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                promise.reject("Permissions not granted",
+                "Required permissions: BLUETOOTH_SCAN, BLUETOOTH_CONNECT, ACCESS_FINE_LOCATION",
+                new Exception());
+                return;
+            }
+        } else {
+            if (ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                promise.reject("Permissions not granted",
+                "Required permissions: ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION",
+                new Exception());
+                return;
+        }
+        }
         if (ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
             ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED ||
             ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
@@ -249,7 +267,7 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
         } catch (Exception e) {
         Log.e(TAG, "Error on Init scan method", e);
         promise.reject("Error on Init scan method",
-            "Init scan method has failed", e);
+            "Init scan method has failed" + e.getMessage(), e);
         }
     }
 
