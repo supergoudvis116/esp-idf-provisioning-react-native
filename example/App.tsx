@@ -18,6 +18,12 @@ const App = () => {
     await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION!,
     );
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN!,
+    );
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT!,
+    );
     console.log('scan init');
     EspIdfProvisioningReactNative.scanBleDevices('SPOT_')
       .then((res: string | any[]) => {

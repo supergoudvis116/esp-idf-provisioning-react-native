@@ -224,6 +224,8 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
         try {
         provisionManager = ESPProvisionManager.getInstance(context);
         EventBus.getDefault().register(this);
+        provisionManager.createESPDevice(ESPConstants.TransportType.TRANSPORT_BLE,
+            ESPConstants.SecurityType.SECURITY_1);
         Log.e(TAG, "Create method");
         } catch (Exception e) {
         Log.e(TAG, "Error on Create method", e);
@@ -249,15 +251,7 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
                 "Required permissions: ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION",
                 new Exception());
                 return;
-        }
-        }
-        if (ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-            ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED ||
-            ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
-            promise.reject("Permissions not granted",
-            "Required permissions: ACCESS_FINE_LOCATION, BLUETOOTH, BLUETOOTH_ADMIN",
-            new Exception());
-            return;
+            }
         }
         Log.e(TAG, "Scan started");
         this.promiseScan = promise;
@@ -292,8 +286,6 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
         }
         try {
         BluetoothDevice device = listDevicesByUuid.get(uuid);
-        provisionManager.createESPDevice(ESPConstants.TransportType.TRANSPORT_BLE,
-            ESPConstants.SecurityType.SECURITY_1);
         provisionManager.getEspDevice().connectBLEDevice(device, uuid);
         promiseConnection = promise;
         promiseConnectionFinished = false;

@@ -8,7 +8,17 @@ npm install @digitalfortress-dev/esp-idf-provisioning-react-native
 
 ## Permissions
 
-The permissions needed for Android: ACCESS_FINE_LOCATION, BLUETOOTH, BLUETOOTH_ADMIN, ACCESS_NETWORK_STATE, BLUETOOTH_SCAN, BLUETOOTH_ADVERTISE, BLUETOOTH_CONNECT
+The permissions needed for Android:
+```
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.BLUETOOTH"/>
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+```
 
 ## Usage
 
