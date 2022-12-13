@@ -36,7 +36,7 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
                         print("device: \(device.name)")
                         self.listDevicesByUuid[device.name] = device
                         response.add([
-                            "name": device.name,
+                            "deviceName": device.name,
                             "serviceUuid": device.name
                         ])
                     }
