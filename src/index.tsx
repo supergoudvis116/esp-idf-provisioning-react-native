@@ -6,6 +6,7 @@ interface EspIdfBleProvisioningRnType {
   setProofOfPossession(proof: string): void;
   getProofOfPossession(): Promise<string>;
   connectToBLEDevice(uuid: string): Promise<Object>;
+  disconnectBLEDevice(): void;
   scanNetworks(): Promise<Array<Object>>;
   sendCustomData(customEndPoint: string, customData: string): Promise<Object>;
   sendCustomDataWithByteData(
