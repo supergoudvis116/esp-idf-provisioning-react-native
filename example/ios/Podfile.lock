@@ -3,7 +3,7 @@ PODS:
   - CocoaAsyncSocket (7.6.5)
   - Curve25519 (1.1)
   - DoubleConversion (1.1.6)
-  - esp-idf-provisioning-react-native (0.1.0):
+  - esp-idf-provisioning-react-native (0.1.9):
     - ESPProvision
     - React-Core
   - ESPProvision (2.0.16):
@@ -365,7 +365,7 @@ PODS:
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
-  - esp-idf-provisioning-react-native (from `../node_modules/esp-idf-provisioning-react-native`)
+  - "esp-idf-provisioning-react-native (from `../node_modules/@digitalfortress-dev/esp-idf-provisioning-react-native`)"
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - Flipper (= 0.125.0)
@@ -447,7 +447,7 @@ EXTERNAL SOURCES:
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   esp-idf-provisioning-react-native:
-    :path: "../node_modules/esp-idf-provisioning-react-native"
+    :path: "../node_modules/@digitalfortress-dev/esp-idf-provisioning-react-native"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -512,7 +512,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   Curve25519: 5f595e906bd962248665978e2992a1fe96e2d831
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
-  esp-idf-provisioning-react-native: 9519bad3750381543777265f0fc9ab84eab18c00
+  esp-idf-provisioning-react-native: d43297d2f5de9ffcbe70ca4d52475e97d6a2baec
   ESPProvision: 2e9b4b72d8bb880051882836b17f28f6537a7b77
   FBLazyVector: a7a655862f6b09625d11c772296b01cd5164b648
   FBReactNativeSpec: 81ce99032d5b586fddd6a38d450f8595f7e04be4
@@ -561,4 +561,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: fc0ef537f614c504615c1cdf931208556645fdb1
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0
