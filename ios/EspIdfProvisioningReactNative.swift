@@ -84,6 +84,13 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
         }
     }
     
+    @objc
+    func disconnectBLEDevice() -> Void {
+        if (self.deviceConnected) {
+            self.espDevice.disconnect()
+        }
+    }
+    
     func getProofOfPossesion(forDevice: ESPDevice, completionHandler: @escaping (String) -> Void) {
         completionHandler(self.proofOfPossession)
     }

@@ -298,6 +298,17 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
     }
 
     @ReactMethod
+    public void disconnectBLEDevice() {
+        try {
+            if (provisionManager.getEspDevice() != null) {
+                provisionManager.getEspDevice().disconnectDevice();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error trying to disconnect device", e);
+        }
+    }
+
+    @ReactMethod
     public void scanNetworks(Promise promise) {
         if (!deviceConnected) {
         Log.e(TAG, "No device connected");

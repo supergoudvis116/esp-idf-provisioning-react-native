@@ -50,6 +50,10 @@ const App = () => {
       });
   };
 
+  const disconnectFun = () => {
+    EspIdfProvisioningReactNative.disconnectBLEDevice();
+  };
+
   const setProof = () => {
     EspIdfProvisioningReactNative.setProofOfPossession('abcd1234');
     ToastAndroid.show('Pop: abcd1234', ToastAndroid.LONG);
@@ -184,6 +188,7 @@ const App = () => {
         Service UUID: {uuid}
       </Text>
       <Button title="Connect to Device" onPress={connectFun} />
+      <Button title="Disconnect to Device" onPress={disconnectFun} />
       <Button title="Set PoP" onPress={setProof} />
       <Button title="Get PoP" onPress={getProof} />
       <Text style={{color: 'white', textAlign: 'center'}}>Pop: {pop}</Text>
