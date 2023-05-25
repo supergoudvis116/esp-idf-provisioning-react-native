@@ -9,7 +9,7 @@ import {
 import EspIdfProvisioningReactNative from '@digitalfortress-dev/esp-idf-provisioning-react-native';
 
 const App = () => {
-  const [uuid, setUuid] = useState('');
+  const [name, setName] = useState('');
   const [pop, setPop] = useState('');
 
   EspIdfProvisioningReactNative.create();
@@ -25,13 +25,13 @@ const App = () => {
       PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT!,
     );
     console.log('scan init');
-    EspIdfProvisioningReactNative.scanBleDevices('SPOT_')
+    EspIdfProvisioningReactNative.scanBleDevices('KORU_')
       .then((res: string | any[]) => {
         console.log(res);
         if (res.length > 0) {
-          setUuid(res[0].serviceUuid);
+          setName(res[0].deviceName);
         } else {
-          setUuid('');
+          setName('');
         }
       })
       .catch((e: any) => {
@@ -40,7 +40,7 @@ const App = () => {
   };
 
   const connectFun = () => {
-    EspIdfProvisioningReactNative.connectToBLEDevice(uuid)
+    EspIdfProvisioningReactNative.connectToBLEDevice(name)
       .then((_res: any) => {
         ToastAndroid.show('Connected to device', ToastAndroid.LONG);
       })
@@ -185,7 +185,7 @@ const App = () => {
       }}>
       <Button title="Scan Devices" onPress={scanFunc} />
       <Text style={{color: 'black', textAlign: 'center'}}>
-        Service UUID: {uuid}
+        Device name: {name}
       </Text>
       <Button title="Connect to Device" onPress={connectFun} />
       <Button title="Disconnect to Device" onPress={disconnectFun} />

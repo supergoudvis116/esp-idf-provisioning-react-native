@@ -55,7 +55,8 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
     private ReactApplicationContext context;
     private ESPProvisionManager provisionManager;
     private Handler handler;
-    private HashMap<String, BluetoothDevice> listDevicesByUuid;
+    private HashMap<String, BluetoothDevice> listDevicesByName;
+    private HashMap<String, String> listDeviceUUIDByName;
     private WritableArray listDeviceNamesByUuid;
 
     private boolean deviceConnected = false;
@@ -89,12 +90,13 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
             serviceUuid = scanResult.getScanRecord().getServiceUuids().get(0).toString();
             }
 
-            if (serviceUuid != null && !listDevicesByUuid.containsKey(serviceUuid)) {
+            if (deviceName != null && !listDevicesByName.containsKey(deviceName)) {
             WritableMap newDevice = Arguments.createMap();
             newDevice.putString("serviceUuid", serviceUuid);
             newDevice.putString("deviceName", deviceName);
             listDeviceNamesByUuid.pushMap(newDevice);
-            listDevicesByUuid.put(serviceUuid, device);
+            listDevicesByName.put(deviceName, device);
+            listDeviceUUIDByName.put(deviceName, serviceUuid);
             }
         } catch (Exception e) {
             if (ActivityCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -255,7 +257,8 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
         }
         Log.e(TAG, "Scan started");
         this.promiseScan = promise;
-        listDevicesByUuid = new HashMap<String, BluetoothDevice>();
+        listDevicesByName = new HashMap<String, BluetoothDevice>();
+        listDeviceUUIDByName = new HashMap<String, String>();
         listDeviceNamesByUuid = Arguments.createArray();
         provisionManager.searchBleEspDevices(prefix, bleScanListener);
         } catch (Exception e) {
@@ -276,8 +279,8 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
     }
 
     @ReactMethod
-    public void connectToBLEDevice(String uuid, Promise promise) {
-        if (!listDevicesByUuid.containsKey(uuid)) {
+    public void connectToBLEDevice(String name, Promise promise) {
+        if (!listDevicesByName.containsKey(name)) {
         Log.e(TAG, "Device don't exists");
         promise.reject("Device don't exists",
             "Please choose a valid device",
@@ -285,8 +288,8 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
         return;
         }
         try {
-        BluetoothDevice device = listDevicesByUuid.get(uuid);
-        provisionManager.getEspDevice().connectBLEDevice(device, uuid);
+        BluetoothDevice device = listDevicesByName.get(name);
+        provisionManager.getEspDevice().connectBLEDevice(device, listDeviceUUIDByName.get(name));
         promiseConnection = promise;
         promiseConnectionFinished = false;
         } catch (Exception e) {
