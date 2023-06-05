@@ -85,10 +85,14 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
     }
     
     @objc
-    func disconnectBLEDevice() -> Void {
+    func disconnectBLEDevice(
+        _ resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
+    ) -> Void {
         if (self.deviceConnected) {
             self.espDevice.disconnect()
         }
+        resolve(0)
     }
     
     func getProofOfPossesion(forDevice: ESPDevice, completionHandler: @escaping (String) -> Void) {
@@ -104,8 +108,13 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
     }
     
     @objc
-    func setProofOfPossession(_ proof: String) {
+    func setProofOfPossession(
+        _ proof: String,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
+    ) {
         self.proofOfPossession = proof
+        resolve(0)
     }
     
     @objc(scanNetworks:reject:)

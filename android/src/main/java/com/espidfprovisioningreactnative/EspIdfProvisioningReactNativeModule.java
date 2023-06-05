@@ -269,8 +269,9 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
     }
 
     @ReactMethod
-    public void setProofOfPossession(String proof) {
+    public void setProofOfPossession(String proof, Promise promise) {
         provisionManager.getEspDevice().setProofOfPossession(proof);
+        promise.resolve(0);
     }
 
     @ReactMethod
@@ -301,13 +302,17 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
     }
 
     @ReactMethod
-    public void disconnectBLEDevice() {
+    public void disconnectBLEDevice(Promise promise) {
         try {
             if (provisionManager.getEspDevice() != null) {
                 provisionManager.getEspDevice().disconnectDevice();
             }
+            promise.resolve(0);
         } catch (Exception e) {
             Log.e(TAG, "Error trying to disconnect device", e);
+            promise.reject("Error trying to disconnect the device",
+            "An error has occurred while disconnect the device",
+            e);
         }
     }
 

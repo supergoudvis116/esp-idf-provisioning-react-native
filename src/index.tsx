@@ -3,10 +3,10 @@ import { NativeModules } from 'react-native';
 interface EspIdfBleProvisioningRnType {
   create(): void;
   scanBleDevices(prefix: string): Promise<Array<Object>>;
-  setProofOfPossession(proof: string): void;
+  setProofOfPossession(proof: string): Promise<void>;
   getProofOfPossession(): Promise<string>;
   connectToBLEDevice(name: string): Promise<Object>;
-  disconnectBLEDevice(): void;
+  disconnectBLEDevice(): Promise<void>;
   scanNetworks(): Promise<Array<Object>>;
   sendCustomData(customEndPoint: string, customData: string): Promise<Object>;
   sendCustomDataWithByteData(
