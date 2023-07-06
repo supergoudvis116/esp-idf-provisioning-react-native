@@ -73,7 +73,7 @@ public class EspIdfProvisioningReactNativeModule extends ReactContextBaseJavaMod
         public void scanStartFailed() {
         Log.e(TAG, "Scan start fail (please turn on BT)");
         promiseScan.reject("Scan start error",
-            "Please turn or Bluetooth on device",
+            "Please turn on Bluetooth on device",
             new Exception());
         }
 
