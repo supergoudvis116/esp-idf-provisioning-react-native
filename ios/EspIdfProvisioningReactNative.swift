@@ -100,7 +100,7 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
         completionHandler(self.proofOfPossession)
     }
   
-    func getUsername(forDevice: ESPDevice, completionHandler: @escaping (String) -> Void) {
+    func getUsername(forDevice: ESPDevice, completionHandler: @escaping (String?) -> Void) {
         completionHandler(self.username)
     }
   
