@@ -44,7 +44,7 @@
   "homepage": "https://github.com/digitalfortress-dev/esp-idf-provisioning-react-native#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
-    "private": false
+    "access": "public"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
