@@ -3,7 +3,7 @@ ESP IDF Provisioning for React Native
 ## Installation
 
 ```sh
-yarn add @supergoudvis116/esp-idf-provisioning-react-native
+yarn add @supergoudvis/esp-idf-provisioning-react-native
 ```
 
 ## Permissions
