@@ -8,6 +8,7 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
     private var espDevice: ESPDevice!
     private var deviceConnected = false
     private var proofOfPossession = ""
+    private var username = ""
 
     @objc
     func create() -> Void {
@@ -98,7 +99,11 @@ class EspIdfProvisioningReactNative: NSObject, ESPDeviceConnectionDelegate {
     func getProofOfPossesion(forDevice: ESPDevice, completionHandler: @escaping (String) -> Void) {
         completionHandler(self.proofOfPossession)
     }
-    
+  
+    func getUsername(forDevice: ESPDevice, completionHandler: @escaping (String) -> Void) {
+        completionHandler(self.username)
+    }
+  
     @objc
     func getProofOfPossession(
         _ resolve: @escaping RCTPromiseResolveBlock,
